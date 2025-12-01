@@ -42,7 +42,7 @@ public class Goal
             return false;
         }
         Goal goal = (Goal) object;
-        return java.util.Objects.equals(_goal, goal._goal) && java.util.Objects.equals(_date, goal._date);
+        return java.util.Objects.equals(_goal, goal._goal);
     }
     @Override
     public int hashCode() {

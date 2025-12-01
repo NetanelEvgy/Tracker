@@ -1,23 +1,27 @@
 package com.example.myapplication;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import kotlinx.coroutines.selects.SelectUnbiasedKt;
 
 public class User
 {
     private String _username;
-    private ArrayList<Subject> _subjects;
+    private Map<String, Subject> _subjects;
     private String _password;
     public User()
     {
         this._username = "";
         this._password = "";
-        this._subjects = new ArrayList<>();
+        this._subjects = new HashMap<>();
     }
     public User(String username, String password)
     {
         this._username = username;
         this._password = password;
-        this._subjects = new ArrayList<>();
+        this._subjects = new HashMap<>();
     }
 
     public void setUsername(String username)
@@ -28,6 +32,10 @@ public class User
     {
         this._password = password;
     }
+    public void setSubjects(Map<String, Subject> subjects)
+    {
+        this._subjects = subjects;
+    }
     public String getUsername()
     {
         return this._username;
@@ -36,68 +44,34 @@ public class User
     {
         return this._password;
     }
-    public ArrayList<Subject> getSubjects()
+    public Map<String, Subject> getSubjects()
     {
         return this._subjects;
     }
     public void addSubject(Subject subject)
     {
-        this._subjects.add(subject);
+        this._subjects.put(subject.getSubject(), subject);
     }
     public void removeSubject(String subject)
     {
-        for (int i = 0; i < this._subjects.size(); i++)
-        {
-            if (this._subjects.get(i).getSubject().equals(subject))
-            {
-                this._subjects.remove(i);
-                return;
-            }
-        }
+        this._subjects.remove(subject);
     }
     public void addGoal(String subject, Goal goal)
     {
-        for (int i = 0; i < this._subjects.size(); i++)
-        {
-            if (this._subjects.get(i).getSubject().equals(subject))
-            {
-                this._subjects.get(i).addGoal(goal);
-                return;
-            }
-        }
+        this._subjects.get(subject).addGoal(goal);
     }
     public void removeGoal(String subject, Goal goal)
     {
-        for (int i = 0; i < this._subjects.size(); i++)
-        {
-            if (this._subjects.get(i).getSubject().equals(subject))
-            {
-                this._subjects.get(i).removeGoal(goal);
-                return;
-            }
-        }
+        this._subjects.get(subject).removeGoal(goal);
     }
     public boolean doesGoalExist(String subject, Goal goal)
     {
-        for (int i = 0; i < this._subjects.size(); i++)
-        {
-            if (this._subjects.get(i).getSubject().equals(subject))
-            {
-                return this._subjects.get(i).doesGoalExist(goal);
-            }
-        }
-        return false;
+        return this._subjects.get(subject).doesGoalExist(goal);
     }
     public boolean doesSubjectExist(String subject)
     {
-        for(int i = 0; i < this._subjects.size(); i++)
-        {
-            if (this._subjects.get(i).getSubject().equals(subject))
-            {
-                return true;
-            }
-        }
-        return false;
+        return this._subjects.containsKey(subject);
+
     }
     public void setFromOtherUser(User user)
     {
@@ -108,9 +82,9 @@ public class User
     public String toString()
     {
         String userStr = "Username: " + this._username + "\n\n";
-        for(int i = 0; i < this._subjects.size(); i++)
+        for (Subject subject : this._subjects.values())
         {
-            userStr += this._subjects.get(i).toString() + "\n";
+            userStr += subject.toString() + "\n";
         }
         return userStr;
     }
