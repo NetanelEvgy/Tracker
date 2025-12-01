@@ -29,7 +29,7 @@ public class Signup extends AppCompatActivity {
         signupButton = findViewById(R.id.signupButton);
         errorMsg = findViewById(R.id.errorMsg);
     }
-    private void l()
+    private void code()
     {
         signupButton.setOnClickListener(v -> {
             // send to db. dont really wanne do that rn.
