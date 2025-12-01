@@ -42,9 +42,17 @@ public class Subject
         }
         return false;
     }
-
     public boolean removeGoal(Goal goal)
     {
         return _goals.remove(goal);
+    }
+    public String toString()
+    {
+        String subjectStr = "Subject: " + this._subject + "\n";
+        for (int i = 0; i < this._goals.size(); i++)
+        {
+            subjectStr += this._goals.get(i).toString() + "\n";
+        }
+        return subjectStr;
     }
 }

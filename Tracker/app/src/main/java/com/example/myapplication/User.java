@@ -44,4 +44,13 @@ public class User
     {
         this._subjects.add(subject);
     }
+    public String toString()
+    {
+        String userStr = "Username: " + this._username + "\n\n";
+        for(int i = 0; i < this._subjects.size(); i++)
+        {
+            userStr += this._subjects.get(i).toString() + "\n";
+        }
+        return userStr;
+    }
 }
