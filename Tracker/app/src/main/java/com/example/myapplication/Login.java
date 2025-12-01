@@ -1,31 +1,32 @@
 package com.example.myapplication;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
-    EditText name;
-    TextView countText;
-    Button countBtn;
-    Button resetBtn;
-    Button exitBtn;
+public class Login extends AppCompatActivity {
+    EditText username, password;
+    TextView errorMsg;
+    Button loginButton;
 
     int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
+        init();
         code();
 
+    }
+    private void init()
+    {
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        loginButton = findViewById(R.id.loginButton);
+        errorMsg = findViewById(R.id.errorMsg);
     }
     private void code()
     {
