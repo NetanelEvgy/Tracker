@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Login extends AppCompatActivity {
     EditText username, password;
     TextView errorMsg;
-    Button loginButton;
+    Button loginButton, switchToSignupButton;
 
     int count;
     @Override
@@ -27,21 +28,41 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
         errorMsg = findViewById(R.id.errorMsg);
+        switchToSignupButton = findViewById(R.id.switchToSignupButton);
+
     }
     private void code()
     {
-        Subject subject1 = new Subject("Cookie Clicker");
-        Subject subject2 = new Subject("Clicker Cookie");
-        Goal goal1 = new Goal("Click Cookies", "1/3/2026");
-        Goal goal2 = new Goal("Cookies Click", "2/3/2026");
-        Goal goal3 = new Goal("Defeat Vera", "3/3/2026");
-        subject1.addGoal(goal1);
-        subject1.addGoal(goal3);
-        subject2.addGoal(goal2);
-        subject2.addGoal(goal3);
-        User user1 = new User("Patrick", "Spongebob");
-        user1.addSubject(subject1);
-        user1.addSubject(subject2);
-        Firebase.addToUserData(user1);
+        loginButton.setOnClickListener(v -> {
+            Firebase.doesUserExist(username.getText().toString(), new Firebase.BoolCallback() {
+                 @Override
+                 public void onResult(boolean exists)
+                 {
+                     if(exists) {
+
+                         Firebase.doesPasswordMatch(username.getText().toString(), password.getText().toString(), new Firebase.BoolCallback() {
+                             @Override
+                             public void onResult(boolean passwordsMatch) {
+                                 if (passwordsMatch) {
+                                     Intent intent = new Intent(Login.this, Notes.class);
+                                     intent.putExtra("USERNAME_KEY", username.getText().toString());
+                                     startActivity(intent);
+                                 } else {
+                                     errorMsg.setText("Incorrect Password");
+                                 }
+                             }
+                         });
+                     }
+                     else
+                     {
+                         errorMsg.setText("User does not exists");
+                     }
+                 }
+             });
+        });
+        switchToSignupButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Login.this, Signup.class);
+            startActivity(intent);
+        });
     }
 }

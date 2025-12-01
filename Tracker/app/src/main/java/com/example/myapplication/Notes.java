@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -15,10 +16,29 @@ public class Notes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_notes);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        init();
+        code();
+    }
+    private void init()
+    {
+
+    }
+    private void code()
+    {
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("USERNAME_KEY");
+        Subject subject1 = new Subject("Cookie Clicker");
+        Subject subject2 = new Subject("Clicker Cookie");
+        Goal goal1 = new Goal("Click Cookies", "1/3/2026");
+        Goal goal2 = new Goal("Cookies Click", "2/3/2026");
+        Goal goal3 = new Goal("Defeat Vera", "3/3/2026");
+        subject1.addGoal(goal1);
+        subject1.addGoal(goal3);
+        subject2.addGoal(goal2);
+        subject2.addGoal(goal3);
+        User user1 = new User(username, "Spongebob");
+        user1.addSubject(subject1);
+        user1.addSubject(subject2);
+        Firebase.setUser(user1);
     }
 }
