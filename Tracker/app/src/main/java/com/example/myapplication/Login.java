@@ -19,8 +19,13 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         init();
+        setButtonsEnabled(true);
         code();
 
+    }
+    private void setButtonsEnabled(boolean enabled) {
+        loginButton.setEnabled(enabled);
+        switchToSignupButton.setEnabled(enabled);
     }
     private void init()
     {
@@ -34,12 +39,24 @@ public class Login extends AppCompatActivity {
     private void code()
     {
         loginButton.setOnClickListener(v -> {
+            setButtonsEnabled(false);
+            if(username.getText().toString().isEmpty())
+            {
+                errorMsg.setText("Username cannot be empty");
+                setButtonsEnabled(true);
+                return;
+            }
+            if(password.getText().toString().isEmpty())
+            {
+                errorMsg.setText("Password cannot be empty");
+                setButtonsEnabled(true);
+                return;
+            }
             Firebase.doesUserExist(username.getText().toString(), new Firebase.BoolCallback() {
                  @Override
                  public void onResult(boolean exists)
                  {
                      if(exists) {
-
                          Firebase.doesPasswordMatch(username.getText().toString(), password.getText().toString(), new Firebase.BoolCallback() {
                              @Override
                              public void onResult(boolean passwordsMatch) {
@@ -47,8 +64,11 @@ public class Login extends AppCompatActivity {
                                      Intent intent = new Intent(Login.this, Notes.class);
                                      intent.putExtra("USERNAME_KEY", username.getText().toString());
                                      startActivity(intent);
-                                 } else {
+                                 }
+                                 else
+                                 {
                                      errorMsg.setText("Incorrect Password");
+                                     setButtonsEnabled(true);
                                  }
                              }
                          });
@@ -56,11 +76,13 @@ public class Login extends AppCompatActivity {
                      else
                      {
                          errorMsg.setText("User does not exists");
+                         setButtonsEnabled(true);
                      }
                  }
              });
         });
         switchToSignupButton.setOnClickListener(v -> {
+            setButtonsEnabled(false);
             Intent intent = new Intent(Login.this, Signup.class);
             startActivity(intent);
         });

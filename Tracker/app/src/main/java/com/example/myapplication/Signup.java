@@ -21,7 +21,12 @@ public class Signup extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signup);
         init();
+        setButtonsEnabled(true);
         code();
+    }
+    private void setButtonsEnabled(boolean enabled) {
+        signupButton.setEnabled(enabled);
+        switchToLoginButton.setEnabled(enabled);
     }
     private void init()
     {
@@ -34,6 +39,19 @@ public class Signup extends AppCompatActivity {
     private void code()
     {
         signupButton.setOnClickListener(v -> {
+            setButtonsEnabled(false);
+            if(username.getText().toString().isEmpty())
+            {
+                errorMsg.setText("Username cannot be empty");
+                setButtonsEnabled(true);
+                return;
+            }
+            if(password.getText().toString().isEmpty())
+            {
+                errorMsg.setText("Password cannot be empty");
+                setButtonsEnabled(true);
+                return;
+            }
             Firebase.doesUserExist(username.getText().toString(), new Firebase.BoolCallback() {
                 @Override
                 public void onResult(boolean exists)
@@ -49,11 +67,13 @@ public class Signup extends AppCompatActivity {
                     else
                     {
                         errorMsg.setText("User already exists");
+                        setButtonsEnabled(true);
                     }
                 }
             });
         });
         switchToLoginButton.setOnClickListener(v -> {
+            setButtonsEnabled(false);
             Intent intent = new Intent(Signup.this, Login.class);
             startActivity(intent);
         });

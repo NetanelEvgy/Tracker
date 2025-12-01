@@ -44,7 +44,4 @@ public class User
     {
         this._subjects.add(subject);
     }
-
-
-
 }

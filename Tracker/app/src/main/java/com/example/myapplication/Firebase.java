@@ -15,9 +15,13 @@ public class Firebase
     {
         void onResult(boolean result);
     }
-    public static void doesUserExist(String username,BoolCallback callback)
+    public interface UserCallback
     {
-        db.getReference("Users").child(username).addValueEventListener(new ValueEventListener() {
+        void onResult(User user);
+    }
+    public static void doesUserExist(String username, BoolCallback callback)
+    {
+        db.getReference("Users").child(username).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
@@ -33,7 +37,7 @@ public class Firebase
     }
     public static void doesPasswordMatch(String username, String password, BoolCallback callback)
     {
-        db.getReference("Users").child(username).addValueEventListener(new ValueEventListener() {
+        db.getReference("Users").child(username).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
@@ -51,8 +55,20 @@ public class Firebase
     {
         db.getReference("Users").child(user.getUsername()).setValue(user);
     }
-    public static void removeFromUserData(String user, Subject subject)
+    public static void getUser(String username, UserCallback callback)
     {
+        db.getReference("Users").child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                callback.onResult(snapshot.getValue(User.class));
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+                callback.onResult(new User());
+            }
+        });
     }
 }
