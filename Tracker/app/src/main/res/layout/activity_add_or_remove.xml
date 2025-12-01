@@ -9,7 +9,7 @@
     >
 
     <EditText
-        android:id="@+id/subjectToAdd"
+        android:id="@+id/subjectToAddOrRemove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Subject"
@@ -23,6 +23,13 @@
         android:layout_marginTop="16dp"
         android:text="Add Subject"
         />
+    <Button
+        android:id="@+id/removeSubjectButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Remove Subject"
+        />
     <EditText
         android:id="@+id/subjectForGoal"
         android:layout_width="match_parent"
@@ -32,7 +39,7 @@
         android:inputType="text"
         />
     <EditText
-        android:id="@+id/goal"
+        android:id="@+id/goalText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -40,7 +47,7 @@
         android:inputType="text"
         />
     <EditText
-        android:id="@+id/date"
+        android:id="@+id/dateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -54,6 +61,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Add Goal"
+        />
+    <Button
+        android:id="@+id/removeGoalButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Remove Goal"
         />
     <TextView
         android:id="@+id/errorMsg"

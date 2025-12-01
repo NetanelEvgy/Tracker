@@ -44,6 +44,67 @@ public class User
     {
         this._subjects.add(subject);
     }
+    public void removeSubject(String subject)
+    {
+        for (int i = 0; i < this._subjects.size(); i++)
+        {
+            if (this._subjects.get(i).getSubject().equals(subject))
+            {
+                this._subjects.remove(i);
+                return;
+            }
+        }
+    }
+    public void addGoal(String subject, Goal goal)
+    {
+        for (int i = 0; i < this._subjects.size(); i++)
+        {
+            if (this._subjects.get(i).getSubject().equals(subject))
+            {
+                this._subjects.get(i).addGoal(goal);
+                return;
+            }
+        }
+    }
+    public void removeGoal(String subject, Goal goal)
+    {
+        for (int i = 0; i < this._subjects.size(); i++)
+        {
+            if (this._subjects.get(i).getSubject().equals(subject))
+            {
+                this._subjects.get(i).removeGoal(goal);
+                return;
+            }
+        }
+    }
+    public boolean doesGoalExist(String subject, Goal goal)
+    {
+        for (int i = 0; i < this._subjects.size(); i++)
+        {
+            if (this._subjects.get(i).getSubject().equals(subject))
+            {
+                return this._subjects.get(i).doesGoalExist(goal);
+            }
+        }
+        return false;
+    }
+    public boolean doesSubjectExist(String subject)
+    {
+        for(int i = 0; i < this._subjects.size(); i++)
+        {
+            if (this._subjects.get(i).getSubject().equals(subject))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void setFromOtherUser(User user)
+    {
+        this._username = user._username;
+        this._password = user._password;
+        this._subjects = user._subjects;
+    }
     public String toString()
     {
         String userStr = "Username: " + this._username + "\n\n";

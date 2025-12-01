@@ -13,7 +13,6 @@ public class Subject
         this._subject = "";
         this._goals = new ArrayList<>();
     }
-
     public Subject(String subject)
     {
         this._subject = subject;
@@ -42,9 +41,13 @@ public class Subject
         }
         return false;
     }
-    public boolean removeGoal(Goal goal)
+    public void removeGoal(Goal goal)
     {
-        return _goals.remove(goal);
+        this._goals.remove(goal);
+    }
+    public boolean doesGoalExist(Goal goal)
+    {
+        return this._goals.contains(goal);
     }
     public String toString()
     {

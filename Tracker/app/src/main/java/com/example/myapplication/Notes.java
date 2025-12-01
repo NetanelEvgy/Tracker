@@ -45,20 +45,6 @@ public class Notes extends AppCompatActivity {
         Firebase.getUser(username, new Firebase.UserCallback() {
             @Override
             public void onResult(User user) {
-                //all the things here are worthless its just so i have a user, would be gone after im done.
-                Subject subject1 = new Subject("Cookie Clicker");
-                Subject subject2 = new Subject("Clicker Cookie");
-                Goal goal1 = new Goal("Click Cookies", "1/3/2026");
-                Goal goal2 = new Goal("Cookies Click", "2/3/2026");
-                Goal goal3 = new Goal("Defeat Vera", "3/3/2026");
-                subject1.addGoal(goal1);
-                subject1.addGoal(goal3);
-                subject2.addGoal(goal2);
-                subject2.addGoal(goal3);
-                user.addSubject(subject1);
-                user.addSubject(subject2);
-                Firebase.setUser(user);
-                // from here the code stays
                 data.setText(user.toString());
                 setButtonsEnabled(true);
             }
