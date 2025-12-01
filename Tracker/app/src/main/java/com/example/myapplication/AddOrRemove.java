@@ -137,12 +137,6 @@ public class AddOrRemove extends AppCompatActivity {
             setButtonsEnabled(false);
             if(user.doesSubjectExist(subjectForGoal.getText().toString()))
             {
-                if(!validDate(dateText.getText().toString()))
-                {
-                    errorMsg.setText("Invalid date");
-                    setButtonsEnabled(true);
-                    return;
-                }
                 Goal goal = new Goal(goalText.getText().toString(), dateText.getText().toString());
                 if(user.doesGoalExist(subjectForGoal.getText().toString(), goal))
                 {
