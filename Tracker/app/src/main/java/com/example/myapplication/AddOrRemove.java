@@ -79,6 +79,12 @@ public class AddOrRemove extends AppCompatActivity {
         });
         addSubjectButton.setOnClickListener(v -> {
             setButtonsEnabled(false);
+            if(subjectToAddOrRemove.getText().toString().isEmpty())
+            {
+                errorMsg.setText("Subject cannot be empty");
+                setButtonsEnabled(true);
+                return;
+            }
             if(!user.doesSubjectExist(subjectToAddOrRemove.getText().toString()))
             {
                 Subject subject = new Subject(subjectToAddOrRemove.getText().toString());
@@ -93,6 +99,12 @@ public class AddOrRemove extends AppCompatActivity {
         });
         removeSubjectButton.setOnClickListener(v -> {
             setButtonsEnabled(false);
+            if(subjectToAddOrRemove.getText().toString().isEmpty())
+            {
+                errorMsg.setText("Subject cannot be empty");
+                setButtonsEnabled(true);
+                return;
+            }
             if(user.doesSubjectExist(subjectToAddOrRemove.getText().toString()))
             {
                 user.removeSubject(subjectToAddOrRemove.getText().toString());
@@ -106,6 +118,18 @@ public class AddOrRemove extends AppCompatActivity {
         });
         addGoalButton.setOnClickListener(v-> {
             setButtonsEnabled(false);
+            if(subjectForGoal.getText().toString().isEmpty())
+            {
+                errorMsg.setText("Subject cannot be empty");
+                setButtonsEnabled(true);
+                return;
+            }
+            if(goalText.getText().toString().isEmpty())
+            {
+                errorMsg.setText("Goal cannot be empty");
+                setButtonsEnabled(true);
+                return;
+            }
             if(user.doesSubjectExist(subjectForGoal.getText().toString()))
             {
                 if(!validDate(dateText.getText().toString()))
@@ -135,6 +159,18 @@ public class AddOrRemove extends AppCompatActivity {
         });
         removeGoalButton.setOnClickListener(v -> {
             setButtonsEnabled(false);
+            if(subjectForGoal.getText().toString().isEmpty())
+            {
+                errorMsg.setText("Subject cannot be empty");
+                setButtonsEnabled(true);
+                return;
+            }
+            if(goalText.getText().toString().isEmpty())
+            {
+                errorMsg.setText("Goal cannot be empty");
+                setButtonsEnabled(true);
+                return;
+            }
             if(user.doesSubjectExist(subjectForGoal.getText().toString()))
             {
                 Goal goal = new Goal(goalText.getText().toString(), dateText.getText().toString());

@@ -73,7 +73,7 @@
         android:id="@+id/errorMsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="50dp"
+        android:textSize="10dp"
         android:textColor="#F44336"
         android:layout_marginTop="8dp"
         />
