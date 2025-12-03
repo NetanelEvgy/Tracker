@@ -20,9 +20,17 @@
         android:id="@+id/AIMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="50dp"
+        android:textSize="30dp"
         android:textColor="#673AB7"
+        android:text="AI message will appear here!"
         android:layout_marginTop="8dp"
+        />
+    <Button
+        android:id="@+id/TTSButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Speak Message"
         />
     <View
         android:layout_width="0dp"
