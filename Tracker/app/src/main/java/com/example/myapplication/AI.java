@@ -75,10 +75,26 @@ public class AI extends AppCompatActivity implements TextToSpeech.OnInitListener
         AIButton.setOnClickListener(v -> {
             setButtonsEnabled(false);
             TTSButton.setEnabled(false);
-            String msg = "really really really really really really really really really really really really really really really really really really really really really really really really really really really really long message (is here to check the tts, will be replaced with ai message when ill have the power)";
-            AIMessage.setText(msg);
-            TTSButton.setEnabled(true);
-            setButtonsEnabled(true);
+            AIMessage.setText("Loading...");
+            GeminiManager.getInstance().sendTextPrompt("give me around 30 - 50 words of advice for time management, be creative.", new GeminiCallback() {
+                @Override
+                public void onSuccess(String result) {
+                    runOnUiThread(() -> {
+                        AIMessage.setText(result.trim());
+                        TTSButton.setEnabled(true);
+                        setButtonsEnabled(true);
+                    });
+                }
+                @Override
+                public void onFailure(Throwable error) {
+                    runOnUiThread(() -> {
+                        AIMessage.setText("Error: " + error.getMessage());
+                        TTSButton.setEnabled(true);
+                        setButtonsEnabled(true);
+                    });
+                }
+            });
+
         });
         TTSButton.setOnClickListener(v -> {
             String speech = AIMessage.getText().toString();
