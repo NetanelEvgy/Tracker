@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Notes extends AppCompatActivity {
     TextView data;
-    Button switchToAddOrRemoveButton, switchToAIButton, logoutButton;
+    Button switchToAddOrRemoveButton, addAllNotificationsButton, removeAllNotificationsButton, switchToAIButton, logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +25,13 @@ public class Notes extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
         init();
         setButtonsEnabled(false);
+        NotificationHelper.createNotificationChannel(this);
         code();
     }
     private void setButtonsEnabled(boolean enabled) {
         switchToAddOrRemoveButton.setEnabled(enabled);
+        addAllNotificationsButton.setEnabled(enabled);
+        removeAllNotificationsButton.setEnabled(enabled);
         switchToAIButton.setEnabled(enabled);
         logoutButton.setEnabled(enabled);
     }
@@ -35,6 +39,8 @@ public class Notes extends AppCompatActivity {
     {
         data = findViewById(R.id.data);
         switchToAddOrRemoveButton = findViewById(R.id.switchToAddOrRemoveButton);
+        addAllNotificationsButton = findViewById(R.id.addAllNotificationsButton);
+        removeAllNotificationsButton = findViewById(R.id.removeAllNotificationsButton);
         switchToAIButton = findViewById(R.id.switchToAIButton);
         logoutButton = findViewById(R.id.logoutButton);
     }
@@ -42,12 +48,40 @@ public class Notes extends AppCompatActivity {
     {
         Intent prevIntent = getIntent();
         String username = prevIntent.getStringExtra("USERNAME_KEY");
+        User user = new User();
         Firebase.getUser(username, new Firebase.UserCallback() {
             @Override
-            public void onResult(User user) {
+            public void onResult(User userFromFirebase) {
+                user.setFromOtherUser(userFromFirebase);
                 data.setText(user.toString());
                 setButtonsEnabled(true);
             }
+        });
+        addAllNotificationsButton.setOnClickListener(v ->{
+            setButtonsEnabled(false);
+            NotificationHelper.requestExactAlarmPermission(Notes.this);
+            if (NotificationHelper.hasExactAlarmPermission(Notes.this))
+            {
+                NotificationHelper.scheduleAll(Notes.this, username, user);
+            }
+            else
+            {
+                Toast.makeText(Notes.this, "Permissions Not Granted.", Toast.LENGTH_LONG).show();
+            }
+            setButtonsEnabled(true);
+        });
+        removeAllNotificationsButton.setOnClickListener(v ->{
+            setButtonsEnabled(false);
+            NotificationHelper.requestExactAlarmPermission(Notes.this);
+            if (NotificationHelper.hasExactAlarmPermission(Notes.this))
+            {
+                NotificationHelper.cancelAll(Notes.this, username, user);
+            }
+            else
+            {
+                Toast.makeText(Notes.this, "Permissions Not Granted.", Toast.LENGTH_LONG).show();
+            }
+            setButtonsEnabled(true);
         });
         switchToAddOrRemoveButton.setOnClickListener(v -> {
             setButtonsEnabled(false);
