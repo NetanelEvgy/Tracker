@@ -22,11 +22,18 @@ public class NotificationHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
         {
             AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
-            if (!alarmManager.canScheduleExactAlarms())
+            if (alarmManager != null && !alarmManager.canScheduleExactAlarms())
             {
                 Intent intent = new Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
                 activity.startActivity(intent);
             }
+        }
+    }
+    public static void requestNotificationPermission(Activity activity)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        {
+            activity.requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
         }
     }
     public static boolean hasExactAlarmPermission(Context context)
@@ -66,7 +73,7 @@ public class NotificationHelper {
         long now = System.currentTimeMillis();
         if (triggerMillis <= now)
         {
-            triggerMillis = now + 2000;
+            triggerMillis = now + 200;
         }
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, Notifications.class);

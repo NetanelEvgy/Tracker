@@ -26,6 +26,7 @@ public class Notes extends AppCompatActivity {
         init();
         setButtonsEnabled(false);
         NotificationHelper.createNotificationChannel(this);
+        NotificationHelper.requestNotificationPermission(this);
         code();
     }
     private void setButtonsEnabled(boolean enabled) {
