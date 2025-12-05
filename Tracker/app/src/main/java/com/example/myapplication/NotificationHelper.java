@@ -14,6 +14,7 @@ import android.app.NotificationManager;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class NotificationHelper {
@@ -68,13 +69,13 @@ public class NotificationHelper {
     {
         int requestCode = generateId(username, subject, goal, date);
         LocalDate goalDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
-        LocalDateTime notifyTime = goalDate.minusDays(1).atStartOfDay();
-        long triggerMillis = notifyTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-        long now = System.currentTimeMillis();
-        if (triggerMillis <= now)
+        ZonedDateTime notifyTime = goalDate.minusDays(1).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
+        if (notifyTime.isBefore(now))
         {
-            triggerMillis = now + 200;
+            notifyTime = now.plusSeconds(1);
         }
+        long triggerMillis = notifyTime.toInstant().toEpochMilli();
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, Notifications.class);
         intent.putExtra("message", goal);
