@@ -16,15 +16,22 @@
         android:layout_marginTop="16dp"
         android:text="Get AI Time Management Tips!"
         />
-    <TextView
-        android:id="@+id/AIMessage"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:textColor="#673AB7"
-        android:text="AI message will appear here!"
-        android:layout_marginTop="8dp"
-        />
+        android:layout_height="300dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/AIMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:textColor="#673AB7"
+            android:text="AI message will appear here!"
+            android:layout_marginTop="8dp"
+            />
+    </ScrollView>
     <Button
         android:id="@+id/TTSButton"
         android:layout_width="match_parent"

@@ -20,10 +20,11 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         init();
         setButtonsEnabled(true);
+        Helper.disableBackButton(Login.this);
         code();
-
     }
-    private void setButtonsEnabled(boolean enabled) {
+    private void setButtonsEnabled(boolean enabled)
+    {
         loginButton.setEnabled(enabled);
         switchToSignupButton.setEnabled(enabled);
     }

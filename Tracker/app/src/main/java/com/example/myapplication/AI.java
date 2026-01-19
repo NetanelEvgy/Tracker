@@ -18,12 +18,14 @@ public class AI extends AppCompatActivity implements TextToSpeech.OnInitListener
     private TextToSpeech tts;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ai);
         init();
         setButtonsEnabled(true);
+        Helper.disableBackButton(AI.this);
         code();
     }
     @Override
@@ -41,7 +43,8 @@ public class AI extends AppCompatActivity implements TextToSpeech.OnInitListener
     protected void onPause()
     {
         super.onPause();
-        if (tts != null) {
+        if (tts != null)
+        {
             tts.stop();
         }
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,9 +23,11 @@ public class Signup extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         init();
         setButtonsEnabled(true);
+        Helper.disableBackButton(Signup.this);
         code();
     }
-    private void setButtonsEnabled(boolean enabled) {
+    private void setButtonsEnabled(boolean enabled)
+    {
         signupButton.setEnabled(enabled);
         switchToLoginButton.setEnabled(enabled);
     }

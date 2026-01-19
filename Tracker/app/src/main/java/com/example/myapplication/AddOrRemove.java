@@ -8,9 +8,6 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,15 +20,18 @@ public class AddOrRemove extends AppCompatActivity {
     Button addSubjectButton, removeSubjectButton, addGoalButton, removeGoalButton, backToNotesButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_or_remove);
         init();
         setButtonsEnabled(false);
+        Helper.disableBackButton(AddOrRemove.this);
         code();
     }
-    private void setButtonsEnabled(boolean enabled) {
+    private void setButtonsEnabled(boolean enabled)
+    {
         addSubjectButton.setEnabled(enabled);
         removeSubjectButton.setEnabled(enabled);
         addGoalButton.setEnabled(enabled);

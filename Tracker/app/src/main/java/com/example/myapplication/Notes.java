@@ -3,33 +3,31 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class Notes extends AppCompatActivity {
     TextView data;
     Button switchToAddOrRemoveButton, addAllNotificationsButton, removeAllNotificationsButton, switchToAIButton, logoutButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_notes);
         init();
         setButtonsEnabled(false);
+        Helper.disableBackButton(Notes.this);
         NotificationHelper.createNotificationChannel(this);
         NotificationHelper.requestNotificationPermission(this);
         code();
     }
-    private void setButtonsEnabled(boolean enabled) {
+    private void setButtonsEnabled(boolean enabled)
+    {
         switchToAddOrRemoveButton.setEnabled(enabled);
         addAllNotificationsButton.setEnabled(enabled);
         removeAllNotificationsButton.setEnabled(enabled);
