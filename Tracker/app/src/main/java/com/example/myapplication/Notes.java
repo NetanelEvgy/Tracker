@@ -96,7 +96,7 @@ public class Notes extends AppCompatActivity {
         });
         logoutButton.setOnClickListener(v -> {
             setButtonsEnabled(false);
-            Intent newIntent = new Intent(Notes.this, Login.class);
+            Intent newIntent = new Intent(Notes.this, LoginOrSignup.class);
             startActivity(newIntent);
         });
     }
